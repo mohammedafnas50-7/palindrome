@@ -1,33 +1,35 @@
-import java.util.Scanner;
-
 public class palindromecheckerapp {
 
-    public static boolean isPalindrome(String str, int start, int end) {
-        if (start >= end) {
-            return true;
-        }
-
-        if (str.charAt(start) != str.charAt(end)) {
+    public static boolean isPalindrome(String input) {
+        if (input == null) {
             return false;
         }
 
-        return isPalindrome(str, start + 1, end - 1);
+        // Normalize the string: remove spaces and convert to lowercase
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+
+        int left = 0;
+        int right = normalized.length() - 1;
+
+        // Check palindrome using two-pointer technique
+        while (left < right) {
+            if (normalized.charAt(left) != normalized.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        String text = "Never Odd Or Even";
 
-        System.out.print("Enter a string: ");
-        String input = scanner.nextLine();
-
-        input = input.replaceAll("\\s+", "").toLowerCase();
-
-        if (isPalindrome(input, 0, input.length() - 1)) {
-            System.out.println("The string is a Palindrome.");
+        if (isPalindrome(text)) {
+            System.out.println("Palindrome");
         } else {
-            System.out.println("The string is NOT a Palindrome.");
+            System.out.println("Not a Palindrome");
         }
-
-        scanner.close();
     }
 }
